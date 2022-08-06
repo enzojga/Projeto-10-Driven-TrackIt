@@ -1,8 +1,10 @@
 import { useLocation } from "react-router-dom"
 import styled from "styled-components";
+import { getToken,getConfig } from "./data";
 import axios from "axios";
 import { Content } from "../theme/themes";
 import { useEffect,useState } from "react";
+import Habit from "./Habit";
 import HabitForm from "./HabitForm";
 
 export default function Habits(){
@@ -10,19 +12,17 @@ export default function Habits(){
     const location = useLocation();
     const userData = location.state;
     const [habitsList,setHabitsList] = useState([]);
-    const config = {
-        headers: {
-            "Authorization": `Bearer ${userData.token}`
-        }
-    }
+    const [habtsForms,setHabitsForms] = useState([]);
+
+    const token = getToken();
+    const config = getConfig();
+
     useEffect(()=>{
         const promisse = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits',config);
         promisse.then(p => setHabitsList(p.data));
         promisse.catch(p => console.log(p));
 
-    },[])
-
-    console.log(habitsList);
+    },habitsList)
 
     return(
         <>
@@ -33,11 +33,12 @@ export default function Habits(){
                 </Header>
                 <Container>
                     <div>
-                        <h1>Meus hábitos</h1>
-                        <button>+</button>
+                        <h1 >Meus hábitos</h1>
+                        <button onClick={() => {setHabitsForms([...habtsForms,1])}}>+</button>
                     </div>
-                    {habitsList.length === 0 ? <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p> : 'Seus habitos'}
-                    <HabitForm></HabitForm>
+                    {habitsList.length === 0 ? <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p> : habitsList.map((h) => <Habit name={h.name} id={h.id} days={h.days}></Habit>)}
+                    {habtsForms.map((p) => <HabitForm></HabitForm>)}
+                    <HabitForm config ={config}></HabitForm>
                 </Container>
                 <Footer><p>Hábitos</p> <div><span>Hoje</span></div> <p>Histórico</p></Footer>
             </Content>
@@ -109,7 +110,7 @@ const Container = styled.div`
     margin-top: 95px;
     display: flex;
     flex-direction: column;
-    div{
+    & > div{
         display: flex;
         justify-content: space-between;
         h1{

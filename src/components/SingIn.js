@@ -1,6 +1,6 @@
 import {Content,Form} from "../theme/themes"
 import { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import logo from '../images/logo.png'
 import { postAuth } from "./data";
 export default function(){
@@ -11,17 +11,19 @@ export default function(){
     const [image,setImage] = useState('');
     const [data,setData] = useState({});
 
+    const navigate = useNavigate();
+
     function postSingIn(e){
         e.preventDefault();
         const postObj ={email:email,
                         password:password,
                         name:name,
                         image:image}
-        postAuth('sign-up',postObj,setData);
-        setEmail('');
-        setPassword('');
-        setName('');
-        setImage('');
+
+        const getPromisse = postAuth('sign-up',postObj);
+        getPromisse.then((p)=>{console.log(p)});
+        console.log(data)
+        getPromisse.catch((p) => {setEmail(''); setPassword(''); setName(''); setImage('');});
     }
     console.log(data);
     return(

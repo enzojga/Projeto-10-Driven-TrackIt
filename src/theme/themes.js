@@ -49,5 +49,18 @@ const Form = styled.form`
         box-sizing: border-box;
     }
 `
+const DayDiv = styled.div`
+        width: 30px;
+        height: 30px;
+        border: 1px solid #D5D5D5;
+        border-radius: 5px;
+        background-color: ${props => props.bColor };
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        color: ${props => props.color };
+        margin-left: 5px;
+`
 
-export {Content,Form}
+export {Content,Form,DayDiv}

@@ -1,10 +1,22 @@
 import axios from "axios";
 
-function postAuth(type,obj,setData){
-
-    const getPromisse = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/${type}`,obj);
-    getPromisse.then((p)=>{setData(p)})
-    getPromisse.catch((p) => {setData(p)})
+function postAuth(type,obj){
+    const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/${type}`,obj);
+    return promise;
 }
 
-export {postAuth};
+function getToken(){
+    const token = JSON.parse(localStorage.getItem('token'));
+    return token;
+}
+
+function getConfig(){
+    const token = getToken();
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    }
+    return config;
+}
+export {postAuth,getToken,getConfig};

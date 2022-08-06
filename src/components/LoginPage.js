@@ -16,8 +16,8 @@ export default function LoginPage(){
     function setLogin(e){
         e.preventDefault();
         console.log(email,password);
-        const getPromisse = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login`,{email,password});
-        getPromisse.then((p)=>{navigate('/habitos',{state:p.data})});
+        const getPromisse = postAuth('login',{email,password});
+        getPromisse.then((p)=>{ localStorage.setItem('token',JSON.stringify(p.data.token)) ;navigate('/habitos',{state:p.data})});
         console.log(data)
         getPromisse.catch((p) => {setEmail('');setPassword('')});
     }   
