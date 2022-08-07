@@ -1,6 +1,7 @@
-import { useState, } from "react";
+import { useState,useContext } from "react";
 import {Content,Form} from "../theme/themes"
 import { Link,useNavigate } from 'react-router-dom';
+import { UserContext } from "../contexts/UserContext";
 import logo from '../images/logo.png'
 import axios from "axios";
 import { postAuth } from "./data";
@@ -8,20 +9,19 @@ import { postAuth } from "./data";
 export default function LoginPage(){
 
     const navigate = useNavigate();
+    const {setImage} = useContext(UserContext);
 
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
-    const [data,setData] = useState('');
 
     function setLogin(e){
         e.preventDefault();
         console.log(email,password);
         const getPromisse = postAuth('login',{email,password});
-        getPromisse.then((p)=>{ localStorage.setItem('token',JSON.stringify(p.data.token)) ;navigate('/habitos',{state:p.data})});
-        console.log(data)
+        getPromisse.then((p)=>{ localStorage.setItem('token',JSON.stringify(p.data.token));setImage(p.data.image);navigate('/habitos',{state:p.data})});
         getPromisse.catch((p) => {setEmail('');setPassword('')});
-    }   
-    console.log(data)
+    }
+
     return(
         <Content>
             <img src={logo}/>

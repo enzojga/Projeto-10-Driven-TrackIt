@@ -62,5 +62,36 @@ const DayDiv = styled.div`
         color: ${props => props.color };
         margin-left: 5px;
 `
+const Container = styled.div`
+    width: 100%;
+    height: 100%;
+    margin-top: 95px;
+    display: flex;
+    flex-direction: column;
+    & > div{
+        display: flex;
+        justify-content: space-between;
+        & > h1{
+            color: #126BA5;
+            font-size: 23px;
+            margin-left: 17px;
+        }
+        & > button{
+            width: 40px;
+            height: 35px;
+            border-radius: 5px;
+            background-color: #52B6FF;
+            border-style: none;
+            color:white;
+            font-size: 27px;
+            margin-right: 17px;
+        }
+    }
+    p{
+        font-weight: 400;
+        font-size: 18px;
+        color: #666666;
+    }
+`
 
-export {Content,Form,DayDiv}
+export {Content,Form,DayDiv,Container}

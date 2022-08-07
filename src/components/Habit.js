@@ -29,7 +29,6 @@ const Container = styled.div`
     border-radius: 5px;
     background-color: #FFFFFF;
     margin-bottom: 10px;
-    display: flex;
     flex-direction: column;
     position: relative;
     ion-icon{

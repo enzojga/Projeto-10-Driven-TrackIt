@@ -1,4 +1,5 @@
 import axios from "axios";
+import  dayjs from "dayjs";
 
 function postAuth(type,obj){
     const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/${type}`,obj);
@@ -19,4 +20,16 @@ function getConfig(){
     }
     return config;
 }
-export {postAuth,getToken,getConfig};
+
+function getDate(){
+    dayjs.locale('pt-br');
+    const weekDay = dayjs().format('dddd');
+    const mouthDay = dayjs().format('DD');
+    const mouth = dayjs().format('MM');
+    return(`${weekDay}, ${mouthDay}/${mouth}`);
+}
+function getHabits(type,config){
+    const promisse = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits${type}`,config);
+    return promisse
+}
+export {postAuth,getToken,getConfig,getDate,getHabits};

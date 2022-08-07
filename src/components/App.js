@@ -3,18 +3,23 @@ import { useState } from "react";
 import LoginPage from "./LoginPage";
 import SingIn from "./SingIn";
 import Habits from "./Habits";
-import {UserContext} from "../contexts/UserContext"
+import Header from "./Header";
+import Today from "./Today";
+import {UserProvider} from "../contexts/UserContext"
 import '../theme/reset.css'
 
 export default function App(){
-    const [teste,setTeste] = useState('');
     return(
         <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<LoginPage />} />
-                <Route path="/cadastro" element={<SingIn />} />
-                <Route path="/habitos" element={<Habits />} />
-            </Routes>
+            <UserProvider>
+                <Header/>
+                <Routes>
+                    <Route path="/" element={<LoginPage />} />
+                    <Route path="/cadastro" element={<SingIn />} />
+                    <Route path="/habitos" element={<Habits />} />
+                    <Route path="/hoje" element={<Today />} />
+                </Routes>
+            </UserProvider>
         </BrowserRouter>
     )
 }
