@@ -9,6 +9,7 @@ const Content = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    z-index: 3;
     p{
         font-weight: 400;
         font-size: 14px;
@@ -21,7 +22,6 @@ const Content = styled.div`
     }
 `
 const Form = styled.form`
-
     display: flex;
     flex-direction: column;
     input{
@@ -43,10 +43,16 @@ const Form = styled.form`
         border-radius: 5px;
         border-style: none;
         align-self: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         font-size: 20.976px;
         line-height: 26px;
         color:white;
         box-sizing: border-box;
+        :disabled{
+            opacity: 0.7;
+        }
     }
 `
 const DayDiv = styled.div`
@@ -60,37 +66,23 @@ const DayDiv = styled.div`
         justify-content: center;
         font-size: 20px;
         color: ${props => props.color };
-        margin-left: 5px;
+        margin: 10px 0 0 5px;
 `
 const Container = styled.div`
-    width: 100%;
+    width: 100vw;
     height: 100%;
-    margin-top: 95px;
+    margin: 95px 0 115px 0;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    & > div{
-        display: flex;
-        justify-content: space-between;
-        & > h1{
-            color: #126BA5;
-            font-size: 23px;
-            margin-left: 17px;
-        }
-        & > button{
-            width: 40px;
-            height: 35px;
-            border-radius: 5px;
-            background-color: #52B6FF;
-            border-style: none;
-            color:white;
-            font-size: 27px;
-            margin-right: 17px;
-        }
-    }
+    justify-content: center;
+    align-items: center;
+    background-color: ${props => props.color === undefined ? 'white' : props.color };
     p{
         font-weight: 400;
         font-size: 18px;
         color: #666666;
+        max-width:338px;
     }
 `
 

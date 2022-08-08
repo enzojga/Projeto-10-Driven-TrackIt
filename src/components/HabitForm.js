@@ -4,7 +4,7 @@ import { getConfig } from "./data";
 import { useState } from "react"
 import axios from "axios";
 
-export default function HabitForm(){
+export default function HabitForm({setHabitsForms,habtsForms}){
 
     const [dayList,setDayList] = useState([]);
     const [name,setName] = useState('');
@@ -13,7 +13,7 @@ export default function HabitForm(){
     function postHabit(e){
         e.preventDefault();
         const promise = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits',{name:name,days:dayList},config);
-        promise.then(p => console.log(p))
+        promise.then(p => setHabitsForms(''))
     }
     return(
         <FormBody>
@@ -29,10 +29,10 @@ export default function HabitForm(){
                 <Day setDayList={setDayList} dayList={dayList} index={6}>S</Day>
             </Days>
 
-            <div>
-                <p>Cancelar</p>
+            <Buttons>
+                <p onClick={()=>{setHabitsForms('')}}>Cancelar</p>
                 <button type="submit">Salvar</button>
-            </div>
+            </Buttons>
             </Form>
         </FormBody>
     )
@@ -45,22 +45,24 @@ const FormBody = styled.div`
     border-radius: 5px;
     display: flex;
     flex-direction: column;
+    margin-bottom: 10px;
 `
 const Form = styled.form`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     input{
         width: 303px;
         height: 45px;
         background: #FFFFFF;
         border: 1px solid #D5D5D5;
         border-radius: 5px;
+        margin-top: 19px;
         ::placeholder{
             font-size: 20px;
             color: #DBDBDB;
         }
-    }
-    div{
-        display: flex;
-        align-self: flex-end;
     }
     button{
         width: 84px;
@@ -70,6 +72,7 @@ const Form = styled.form`
         border-style: none;
         color:white;
         font-size: 18px;
+        margin-left: 23px;
     }
     & > :nth-child(3){
         justify-content: flex-end;
@@ -78,4 +81,19 @@ const Form = styled.form`
 const Days = styled.div`
     width: 100%;
     display: flex;
+    margin-left: 19px;
+`
+const Buttons = styled.div`
+        display: flex;
+        align-self: flex-end;
+        justify-content: center;
+        align-items: center;
+        margin: 15px 16px 0 0;
+        p{
+            color: #52B6FF;
+            font-size: 16px;
+        }
+        :disabled{
+            opacity: 0.7;
+        }
 `

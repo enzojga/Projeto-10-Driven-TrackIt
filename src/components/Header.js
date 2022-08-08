@@ -7,7 +7,7 @@ export default function Header(){
     const {image} = useContext(UserContext);
     return(
         <HeaderDiv>
-            <h1>Texto</h1>
+            <h1>TrackIt</h1>
             <img src={image}/>
         </HeaderDiv>
     )
@@ -32,7 +32,9 @@ const HeaderDiv = styled.div`
         margin-right: 18px;
     }
     h1{
-        font-size: 20px;
+        font-size: 40px;
         margin-left: 18px;
+        font-family: Playball;
+        color: white;
     }
 `

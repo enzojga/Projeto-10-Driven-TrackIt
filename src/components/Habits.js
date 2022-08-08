@@ -1,19 +1,13 @@
-import { useLocation } from "react-router-dom"
 import styled from "styled-components";
-import { getToken,getConfig,getHabits } from "./data";
-import axios from "axios";
-import { Content,Container } from "../theme/themes";
+import { getConfig,getHabits } from "./data";
+import { Container } from "../theme/themes";
 import { useEffect,useState } from "react";
-
 import Habit from "./Habit";
 import HabitForm from "./HabitForm";
 
 export default function Habits(){
-
-    const location = useLocation();
-    const userData = location.state;
     const [habitsList,setHabitsList] = useState([]);
-    const [habtsForms,setHabitsForms] = useState([]);
+    const [habtsForms,setHabitsForms] = useState('');
 
     const config = getConfig();
 
@@ -21,59 +15,39 @@ export default function Habits(){
         const promisse = getHabits('',config);
         promisse.then(p => setHabitsList(p.data));
         promisse.catch(p => console.log(p));
-
     },[habtsForms])
-
     return(
         <>
-            <Content color="#E5E5E5">
-                <Container>
-                    <div>
+                <Container color="#E5E5E5">
+                    <HabistHead>
                         <h1 >Meus hábitos</h1>
-                        <button onClick={() => {setHabitsForms([...habtsForms,1])}}>+</button>
-                    </div>
-                    {habitsList.length === 0 ? <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p> : habitsList.map((h) => <Habit name={h.name} id={h.id} days={h.days}></Habit>)}
-                    {habtsForms.map((p) => <HabitForm></HabitForm>)}
+                        <button onClick={() => setHabitsForms(<HabitForm setHabitsForms={setHabitsForms}/>)}>+</button>
+                    </HabistHead>
+                    {habtsForms}
+                    {habitsList.length === 0 ? <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p> : habitsList.map((h) => <Habit name={h.name} id={h.id} days={h.days} habitsList={habitsList} setHabitsList={setHabitsList} ></Habit>)}
                 </Container>
-                <Footer><p>Hábitos</p> <div><span>Hoje</span></div> <p>Histórico</p></Footer>
-            </Content>
         </>
     )
 }
-
-const Footer = styled.div`
-    width: 100vw;
-    height: 70px;
-    background-color: #FFFFFF;
-    display: flex;
-    justify-content: space-around;
-    position: fixed;
-    bottom:0;
-    left: 0;
-    p{
-        font-weight: 400;
-        font-size: 18px;
-        color: #52B6FF;
-        margin: auto 30px auto 30px;
-    }
-    div{
-        position: relative;
-        width: 100%;
-        height: 100%;
-    }
-    span{
-        width: 90px;
-        height: 90px;
-        font-weight: 400;
-        font-size: 18px;
-        color: white;
-        background-color: #52B6FF;
+const HabistHead = styled.div`
         display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        position: absolute;
-        bottom: 30%;
-        left: 20%;
-    }  
+        width: 100%;
+        margin-bottom: 28px;
+        justify-content: space-between;
+        & > h1{
+            color: #126BA5;
+            font-size: 23px;
+            margin-left: 17px;
+        }
+        & > button{
+            width: 40px;
+            height: 35px;
+            border-radius: 5px;
+            background-color: #52B6FF;
+            border-style: none;
+            color:white;
+            font-size: 27px;
+            margin-right: 17px;
+            
+}
 `

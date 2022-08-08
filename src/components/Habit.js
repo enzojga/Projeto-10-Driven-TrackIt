@@ -15,10 +15,10 @@ export default function Habit(props){
     return(
         <Container>
             <h3>{props.name}</h3>
-            <div>
+            <Days>
                 {days.map((d,i) => <DayDiv bColor={props.days.includes(i) ? '#CFCFCF' : 'white'} color={props.days.includes(i) ? 'white' : '#DBDBDB'}>{d}</DayDiv>)}
-            </div>
-            <ion-icon name="trash-outline" onClick={deleteHabit}></ion-icon>
+            </Days>
+            <ion-icon name="trash-outline" onClick={() => {deleteHabit(); props.setHabitsList(props.habitsList.filter(h => h.name !== props.name))}}></ion-icon>
         </Container>
     )
 }
@@ -32,7 +32,7 @@ const Container = styled.div`
     flex-direction: column;
     position: relative;
     ion-icon{
-        font-size: 15px;
+        font-size: 20px;
         position: absolute;
         top: 5px;
         right: 5px;
@@ -41,7 +41,13 @@ const Container = styled.div`
         display: flex;
     }
     h3{
+        margin: 13px 0 0 15px;
         font-size: 20px;
         color: #666666;
     }
+`
+const Days = styled.div`
+    width: 100%;
+    display: flex;
+    margin-left: 15px;
 `
