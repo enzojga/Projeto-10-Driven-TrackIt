@@ -6,10 +6,10 @@ import { getConfig } from "./data";
 export default function Habit(props){
 
     const days = ['D','S','T','Q','Q','S','S'];
-    console.log(props);
     const config = getConfig();
     function deleteHabit(){
-        axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${props.id}`,config).then((p)=>console.log(p))
+        const confirm = window.confirm('Deseja excluir este habito?');
+        confirm ? axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${props.id}`,config) && props.setHabitsList(props.habitsList.filter(h => h.name !== props.name)) : console.log('');
     }
 
     return(
@@ -18,7 +18,7 @@ export default function Habit(props){
             <Days>
                 {days.map((d,i) => <DayDiv bColor={props.days.includes(i) ? '#CFCFCF' : 'white'} color={props.days.includes(i) ? 'white' : '#DBDBDB'}>{d}</DayDiv>)}
             </Days>
-            <ion-icon name="trash-outline" onClick={() => {deleteHabit(); props.setHabitsList(props.habitsList.filter(h => h.name !== props.name))}}></ion-icon>
+            <ion-icon name="trash-outline" onClick={() => deleteHabit()}></ion-icon>
         </Container>
     )
 }

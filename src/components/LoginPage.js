@@ -18,9 +18,8 @@ export default function LoginPage(){
     function setLogin(e){
         e.preventDefault();
         setDisable(true);
-        console.log(email,password);
         const getPromisse = postAuth('login',{email,password});
-        getPromisse.then((p)=>{ localStorage.setItem('token',JSON.stringify(p.data.token));setImage(p.data.image);navigate('/hoje',{state:p.data})});
+        getPromisse.then((p)=>{ localStorage.setItem('token',JSON.stringify(p.data.token));localStorage.setItem('image',JSON.stringify(p.data.image));setImage(p.data.image);navigate('/hoje',{state:p.data})});
         getPromisse.catch((p) => {setEmail('');setPassword('');setDisable(false)});
     }
 

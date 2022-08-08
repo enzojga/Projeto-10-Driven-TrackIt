@@ -6,9 +6,8 @@ import { UserContext } from "../contexts/UserContext";
 
 export default function Footer(){
     const {habits,doneTasks} = useContext(UserContext);
-    console.log(habits,doneTasks)
     return(
-        <FooterStyle> <Link to='/habitos'><p>Hábitos</p></Link>  <Link to='/hoje'><div><CircularProgressbar value={(100 * doneTasks.length) / habits.length}
+        <FooterStyle> <Link to='/habitos'><p>Hábitos</p></Link>  <Link to='/hoje'><div><CircularProgressbar value={isNaN((100 * doneTasks.length) / habits.length) ? 0 : (100 * doneTasks.length) / habits.length}
                                             text={`Hoje`}
                                             background
                                             backgroundPadding={6}
@@ -17,7 +16,7 @@ export default function Footer(){
                                                 textColor: "white",
                                                 pathColor: "white",
                                                 trailColor: "transparent"
-                                      })}                                      
+                                      })}
                                         /></div></Link> <Link to='/historico'><p>Histórico</p></Link></FooterStyle>
     )
 }
@@ -42,6 +41,6 @@ const FooterStyle = styled.div`
         width: 91px;
         height: 91px;
         bottom: 30%;
-        left: 36%;
+        left: 37vw;
     }
 `

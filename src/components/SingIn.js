@@ -25,10 +25,8 @@ export default function(){
 
         const getPromisse = postAuth('sign-up',postObj);
         getPromisse.then((p)=>navigate('/'));
-        console.log(data)
-        getPromisse.catch((p) => {setEmail(''); setPassword(''); setName(''); setImage('');setDisable(false)});
+        getPromisse.catch((p) => {setDisable(false);alert('Preencha os campos corretamente')});
     }
-    console.log(data);
     return(
         <Content>
             <img src={logo}/>

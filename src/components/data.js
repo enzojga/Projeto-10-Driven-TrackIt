@@ -33,7 +33,7 @@ function getHabits(type,config){
     return promisse
 }
 function postCheck(id,type,config){
-    const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/${type}`,config);
+    const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/${type}`,{},config);
     return promise;
 }
 export {postAuth,getToken,getConfig,getDate,getHabits,postCheck};

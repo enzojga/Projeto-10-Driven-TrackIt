@@ -5,10 +5,11 @@ import { UserContext } from "../contexts/UserContext"
 export default function Header(){
 
     const {image} = useContext(UserContext);
+    const iamgeTeste = JSON.parse(localStorage.getItem('image'));
     return(
         <HeaderDiv>
             <h1>TrackIt</h1>
-            <img src={image}/>
+            <img src={iamgeTeste}/>
         </HeaderDiv>
     )
 }

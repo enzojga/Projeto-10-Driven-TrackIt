@@ -1,24 +1,21 @@
-import styled from "styled-components"
-import { postCheck,getConfig } from "./data"
-import axios from "axios";
+import styled from "styled-components";
+import { getConfig,getToken } from "./data";
+import { postCheck,getHabits } from "./data";
 
 export default function TodayHabit(props){
-    console.log(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${props.id}/check`)
+    const token = getToken();
     const config = getConfig();
-    console.log(props.id);
-    function check(){
-        const p = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${props.id}/check`,config);
-        p.then(console.log(p));
-        p.catch(console.log(p));
-    }
+    let type = props.done ? 'uncheck' : 'check';
+    let color = props.highestSequence === props.currentSequence && props.highestSequence !== 0  ? '#8FC549' : '#666666';
+
     return(
         <TodayContainer>
             <HabitInfo>
                 <h1>{props.name}</h1>
-                <p>Sequência atual: {props.currentSequence} dias</p>
-                <p>Seu recorde: {props.highestSequence} dias</p>
+                <Sequence done={props.done}>Sequência atual: <p> {props.currentSequence} dias</p></Sequence>
+                <Record color={color}>Seu recorde: <p>{props.highestSequence} dias</p></Record>
             </HabitInfo>
-            <CheckMark onClick={check} done={props.done}>
+            <CheckMark onClick={() => {postCheck(props.id,type,config).then(p =>getHabits('/today',config).then(p=>{props.setTodayHabits(p.data);props.setHabits(p.data);props.setDoneTasks(p.data.filter(h=> h.done === true))}))}} done={props.done}>
                 <ion-icon name="checkmark-sharp"></ion-icon>
             </CheckMark>
         </TodayContainer>
@@ -39,7 +36,7 @@ const HabitInfo = styled.div`
     display: flex;
     flex-direction: column;
     margin-left: 15px;
-    p{
+    span,p{
         margin-top: 0;
         font-size: 13px;
     }
@@ -59,4 +56,19 @@ const CheckMark = styled.div`
     justify-content: center;
     border-radius: 5px;
     margin-right: 15px;
+`
+const Sequence = styled.span`
+    display: flex;
+    p{
+        color:${props => props.done === true ? '#8FC549' : '#666666'};
+        margin-left: 3px;
+    }
+    margin-bottom: 3px;
+`
+const Record = styled.span`
+    display: flex;
+    p{
+        color:${props => props.color};
+        margin-left: 3px;
+    }
 `
